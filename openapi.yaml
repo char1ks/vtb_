@@ -1,0 +1,1610 @@
+openapi: 3.0.0
+info:
+  title: API для управления коворкингом
+  version: 1.0.0
+  description: API для управления пользователями, организациями, коворкингами, рабочими местами, бронированиями, платежами и услугами.
+
+paths:
+  /users:
+    get:
+      summary: Получить список всех пользователей
+      responses:
+        '200':
+          description: Список пользователей
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: Создать нового пользователя
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreateRequest'
+      responses:
+        '201':
+          description: Пользователь создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+
+  /users/{id}:
+    get:
+      summary: Получить информацию о конкретном пользователе
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор пользователя
+      responses:
+        '200':
+          description: Информация о пользователе
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Пользователь не найден
+    put:
+      summary: Обновить информацию о пользователе
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор пользователя
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        '200':
+          description: Пользователь обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Пользователь не найден
+    delete:
+      summary: Удалить пользователя
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор пользователя
+      responses:
+        '200':
+          description: Пользователь удален
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Пользователь не найден
+
+  /organizations:
+    get:
+      summary: Получить список всех организаций
+      responses:
+        '200':
+          description: Список организаций
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organization'
+    post:
+      summary: Создать новую организацию
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationCreateRequest'
+      responses:
+        '201':
+          description: Организация создана
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+
+  /organizations/{id}:
+    get:
+      summary: Получить информацию о конкретной организации
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор организации
+      responses:
+        '200':
+          description: Информация об организации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+        '404':
+          description: Организация не найдена
+    put:
+      summary: Обновить информацию об организации
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор организации
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationUpdateRequest'
+      responses:
+        '200':
+          description: Организация обновлена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Организация не найдена
+    delete:
+      summary: Удалить организацию
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор организации
+      responses:
+        '200':
+          description: Организация удалена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Организация не найдена
+
+  /coworking-locations:
+    get:
+      summary: Получить список всех коворкингов
+      responses:
+        '200':
+          description: Список коворкингов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CoworkingLocation'
+    post:
+      summary: Создать новый коворкинг
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CoworkingLocationCreateRequest'
+      responses:
+        '201':
+          description: Коворкинг создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+
+  /coworking-locations/{id}:
+    get:
+      summary: Получить информацию о конкретном коворкинге
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор коворкинга
+      responses:
+        '200':
+          description: Информация о коворкинге
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoworkingLocation'
+        '404':
+          description: Коворкинг не найден
+    put:
+      summary: Обновить информацию о коворкинге
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор коворкинга
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CoworkingLocationUpdateRequest'
+      responses:
+        '200':
+          description: Коворкинг обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Коворкинг не найден
+    delete:
+      summary: Удалить коворкинг
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор коворкинга
+      responses:
+        '200':
+          description: Коворкинг удален
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Коворкинг не найден
+
+  /workspaces:
+    get:
+      summary: Получить список всех рабочих мест
+      responses:
+        '200':
+          description: Список рабочих мест
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Workspace'
+    post:
+      summary: Создать новое рабочее место
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspaceCreateRequest'
+      responses:
+        '201':
+          description: Рабочее место создано
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+
+  /workspaces/{id}:
+    get:
+      summary: Получить информацию о конкретном рабочем месте
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор рабочего места
+      responses:
+        '200':
+          description: Информация о рабочем месте
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+        '404':
+          description: Рабочее место не найдено
+    put:
+      summary: Обновить информацию о рабочем месте
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор рабочего места
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspaceUpdateRequest'
+      responses:
+        '200':
+          description: Рабочее место обновлено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Рабочее место не найдено
+    delete:
+      summary: Удалить рабочее место
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор рабочего места
+      responses:
+        '200':
+          description: Рабочее место удалено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Рабочее место не найдено
+
+  /bookings:
+    get:
+      summary: Получить список всех бронирований
+      responses:
+        '200':
+          description: Список бронирований
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Booking'
+    post:
+      summary: Создать новое бронирование
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingCreateRequest'
+      responses:
+        '201':
+          description: Бронирование создано
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+
+  /bookings/{id}:
+    get:
+      summary: Получить информацию о конкретном бронировании
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор бронирования
+      responses:
+        '200':
+          description: Информация о бронировании
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+        '404':
+          description: Бронирование не найдено
+    put:
+      summary: Обновить информацию о бронировании
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор бронирования
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingUpdateRequest'
+      responses:
+        '200':
+          description: Бронирование обновлено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Бронирование не найдено
+    delete:
+      summary: Удалить бронирование
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор бронирования
+      responses:
+        '200':
+          description: Бронирование удалено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Бронирование не найдено
+
+  /payments:
+    get:
+      summary: Получить список всех платежей
+      responses:
+        '200':
+          description: Список платежей
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Payment'
+    post:
+      summary: Создать новый платеж
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentCreateRequest'
+      responses:
+        '201':
+          description: Платеж создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+
+  /payments/{id}:
+    get:
+      summary: Получить информацию о конкретном платеже
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор платежа
+      responses:
+        '200':
+          description: Информация о платеже
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '404':
+          description: Платеж не найден
+    put:
+      summary: Обновить информацию о платеже
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор платежа
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentUpdateRequest'
+      responses:
+        '200':
+          description: Платеж обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Платеж не найден
+
+  /services:
+    get:
+      summary: Получить список всех дополнительных услуг
+      responses:
+        '200':
+          description: Список услуг
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+    post:
+      summary: Создать новую услугу
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceCreateRequest'
+      responses:
+        '201':
+          description: Услуга создана
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+
+  /services/{id}:
+    put:
+      summary: Обновить информацию об услуге
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор услуги
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceUpdateRequest'
+      responses:
+        '200':
+          description: Услуга обновлена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Услуга не найдена
+    delete:
+      summary: Удалить услугу
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор услуги
+      responses:
+        '200':
+          description: Услуга удалена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Услуга не найдена
+
+  /bookings/{booking_id}/services:
+    get:
+      summary: Получить список услуг для конкретного бронирования
+      parameters:
+        - in: path
+          name: booking_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор бронирования
+      responses:
+        '200':
+          description: Список заказанных услуг
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServicesBooked'
+        '404':
+          description: Бронирование не найдено
+    post:
+      summary: Добавить услугу к бронированию
+      parameters:
+        - in: path
+          name: booking_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор бронирования
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServicesBookedCreateRequest'
+      responses:
+        '201':
+          description: Услуга добавлена к бронированию
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+        '404':
+          description: Бронирование или услуга не найдены
+
+  /bookings/{booking_id}/services/{id}:
+    delete:
+      summary: Удалить услугу из бронирования
+      parameters:
+        - in: path
+          name: booking_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор бронирования
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор заказанной услуги
+      responses:
+        '200':
+          description: Услуга удалена из бронирования
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Бронирование или заказанная услуга не найдены
+
+  /bookings/{booking_id}/guest-access:
+    get:
+      summary: Получить информацию о гостевом доступе для бронирования
+      parameters:
+        - in: path
+          name: booking_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор бронирования
+      responses:
+        '200':
+          description: Информация о гостевом доступе
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuestAccess'
+        '404':
+          description: Бронирование или гостевой доступ не найдены
+    post:
+      summary: Создать гостевой доступ для бронирования
+      parameters:
+        - in: path
+          name: booking_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор бронирования
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GuestAccessCreateRequest'
+      responses:
+        '201':
+          description: Гостевой доступ создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+        '404':
+          description: Бронирование не найдено
+    delete:
+      summary: Удалить гостевой доступ
+      parameters:
+        - in: path
+          name: booking_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор бронирования
+      responses:
+        '200':
+          description: Гостевой доступ удален
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Бронирование или гостевой доступ не найдены
+
+  /coworking-locations/{coworking_id}/parking-spots:
+    get:
+      summary: Получить список парковочных мест для коворкинга
+      parameters:
+        - in: path
+          name: coworking_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор коворкинга
+      responses:
+        '200':
+          description: Список парковочных мест
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ParkingSpot'
+        '404':
+          description: Коворкинг не найден
+    post:
+      summary: Создать новое парковочное место
+      parameters:
+        - in: path
+          name: coworking_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор коворкинга
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParkingSpotCreateRequest'
+      responses:
+        '201':
+          description: Парковочное место создано
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+        '404':
+          description: Коворкинг не найден
+
+  /parking-spots/{id}:
+    put:
+      summary: Обновить информацию о парковочном месте
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор парковочного места
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParkingSpotUpdateRequest'
+      responses:
+        '200':
+          description: Парковочное место обновлено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Парковочное место не найдено
+
+  /bookings/{booking_id}/parking:
+    get:
+      summary: Получить информацию о бронировании парковочного места
+      parameters:
+        - in: path
+          name: booking_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор бронирования
+      responses:
+        '200':
+          description: Информация о бронировании парковочного места
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParkingBooking'
+        '404':
+          description: Бронирование или бронирование парковки не найдено
+    post:
+      summary: Забронировать парковочное место
+      parameters:
+        - in: path
+          name: booking_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор бронирования
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParkingBookingCreateRequest'
+      responses:
+        '201':
+          description: Парковочное место забронировано
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+        '404':
+          description: Бронирование или парковочное место не найдено
+    delete:
+      summary: Отменить бронирование парковочного места
+      parameters:
+        - in: path
+          name: booking_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор бронирования
+      responses:
+        '200':
+          description: Бронирование парковочного места удалено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Бронирование или бронирование парковки не найдено
+
+  /coworking-locations/{coworking_id}/equipment:
+    get:
+      summary: Получить список оргтехники для коворкинга
+      parameters:
+        - in: path
+          name: coworking_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор коворкинга
+      responses:
+        '200':
+          description: Список оргтехники
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Equipment'
+        '404':
+          description: Коворкинг не найден
+    post:
+      summary: Добавить новую оргтехнику
+      parameters:
+        - in: path
+          name: coworking_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор коворкинга
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EquipmentCreateRequest'
+      responses:
+        '201':
+          description: Оргтехника добавлена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+        '404':
+          description: Коворкинг не найден
+
+  /equipment/{id}:
+    put:
+      summary: Обновить информацию об оргтехнике
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор оргтехники
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EquipmentUpdateRequest'
+      responses:
+        '200':
+          description: Оргтехника обновлена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Оргтехника не найдена
+
+  /bookings/{booking_id}/equipment:
+    get:
+      summary: Получить информацию о бронировании оргтехники
+      parameters:
+        - in: path
+          name: booking_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор бронирования
+      responses:
+        '200':
+          description: Информация о бронировании оргтехники
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipmentBooking'
+        '404':
+          description: Бронирование или бронирование оргтехники не найдено
+    post:
+      summary: Забронировать оргтехнику
+      parameters:
+        - in: path
+          name: booking_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор бронирования
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EquipmentBookingCreateRequest'
+      responses:
+        '201':
+          description: Оргтехника забронирована
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+        '404':
+          description: Бронирование или оргтехника не найдены
+    delete:
+      summary: Отменить бронирование оргтехники
+      parameters:
+        - in: path
+          name: booking_id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор бронирования
+      responses:
+        '200':
+          description: Бронирование оргтехники удалено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Бронирование или бронирование оргтехники не найдено
+
+  /support-tickets:
+    get:
+      summary: Получить список всех обращений в службу поддержки
+      responses:
+        '200':
+          description: Список обращений
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SupportTicket'
+    post:
+      summary: Создать новое обращение в службу поддержки
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SupportTicketCreateRequest'
+      responses:
+        '201':
+          description: Обращение создано
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+
+  /support-tickets/{id}:
+    get:
+      summary: Получить информацию о конкретном обращении в службу поддержки
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор обращения
+      responses:
+        '200':
+          description: Информация об обращении
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupportTicket'
+        '404':
+          description: Обращение не найдено
+    put:
+      summary: Обновить статус обращения в службу поддержки
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор обращения
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SupportTicketUpdateRequest'
+      responses:
+        '200':
+          description: Статус обращения обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Обращение не найдено
+
+  /events:
+    get:
+      summary: Получить список всех мероприятий
+      responses:
+        '200':
+          description: Список мероприятий
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+    post:
+      summary: Создать новое мероприятие
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventCreateRequest'
+      responses:
+        '201':
+          description: Мероприятие создано
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResponse'
+
+  /events/{id}:
+    get:
+      summary: Получить информацию о конкретном мероприятии
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор мероприятия
+      responses:
+        '200':
+          description: Информация о мероприятии
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          description: Мероприятие не найдено
+    put:
+      summary: Обновить информацию о мероприятии
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор мероприятия
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventUpdateRequest'
+      responses:
+        '200':
+          description: Мероприятие обновлено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '404':
+          description: Мероприятие не найдено
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Идентификатор пользователя
+        name:
+          type: string
+          description: Имя пользователя
+        email:
+          type: string
+          format: email
+          description: Email пользователя
+        phone:
+          type: string
+          nullable: true
+          description: Телефон пользователя
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Идентификатор организации, к которой принадлежит пользователь
+      required:
+        - id
+        - name
+        - email
+
+    UserCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Имя пользователя
+        email:
+          type: string
+          format: email
+          description: Email пользователя
+        phone:
+          type: string
+          nullable: true
+          description: Телефон пользователя
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Идентификатор организации, к которой принадлежит пользователь
+      required:
+        - name
+        - email
+
+    UserUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Имя пользователя
+        phone:
+          type: string
+          nullable: true
+          description: Телефон пользователя
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Идентификатор организации, к которой принадлежит пользователь
+
+    Organization:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Идентификатор организации
+        name:
+          type: string
+          description: Название организации
+        address:
+          type: string
+          nullable: true
+          description: Адрес организации
+        contact_email:
+          type: string
+          format: email
+          nullable: true
+          description: Контактный email организации
+      required:
+        - id
+        - name
+
+    OrganizationCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Название организации
+        address:
+          type: string
+          nullable: true
+          description: Адрес организации
+        contact_email:
+          type: string
+          format: email
+          nullable: true
+          description: Контактный email организации
+      required:
+        - name
+
+    OrganizationUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Название организации
+        address:
+          type: string
+          nullable: true
+          description: Адрес организации
+        contact_email:
+          type: string
+          format: email
+          nullable: true
+          description: Контактный email организации
+
+    CoworkingLocation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Идентификатор коворкинга
+        name:
+          type: string
+          description: Название коворкинга
+        address:
+          type: string
+          nullable: true
+          description: Адрес коворкинга
+        timezone:
+          type: string
+          nullable: true
+          description: Часовой пояс коворкинга
+      required:
+        - id
+        - name
+
+    CoworkingLocationCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Название коворкинга
+        address:
+          type: string
+          nullable: true
+          description: Адрес коворкинга
+        timezone:
+          type: string
+          nullable: true
+          description: Часовой пояс коворкинга
+      required:
+        - name
+
+    CoworkingLocationUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Название коворкинга
+        address:
+          type: string
+          nullable: true
+          description: Адрес коворкинга
+        timezone:
+          type: string
+          nullable: true
+          description: Часовой пояс коворкинга
+
+    Workspace:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Идентификатор рабочего места
+        coworking_id:
+          type: string
+          format: uuid
+          description: Идентификатор коворкинга, к которому относится рабочее место
+        name:
+          type: string
+          description: Название рабочего места
+        type:
+          type: string
+          description: Тип рабочего места (например, "стол", "переговорная")
+        floor:
+          type: integer
+          description: Этаж, на котором находится рабочее место
+      required:
+        - id
+        - coworking_id
+        - name
+        - type
+        - floor
+
+    WorkspaceCreateRequest:
+      type: object
+      properties:
+        coworking_id:
+          type: string
+          format: uuid
+          description: Идентификатор коворкинга, к которому относится рабочее место
+        name:
+          type: string
+          description: Название рабочего места
+        type:
+          type: string
+          description: Тип рабочего места (например, "стол", "переговорная")
+        floor:
+          type: integer
+          description: Этаж, на котором находится рабочее место
+      required:
+        - coworking_id
+        - name
+        - type
+        - floor
+
+    WorkspaceUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Название рабочего места
+        type:
+          type: string
+          description: Тип рабочего места (например, "стол", "переговорная")
+        floor:
+          type: integer
+          description: Этаж, на котором находится рабочее место
+
+    Booking:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Идентификатор бронирования
+        user_id:
+          type: string
+          format: uuid
+          description: Идентификатор пользователя, создавшего бронирование
+        workspace_id:
+          type: string
+          format: uuid
+          description: Идентификатор рабочего места
+        start_time:
+          type: string
+          format: date-time
+          description: Время начала бронирования
+        end_time:
+          type: string
+          format: date-time
+          description: Время окончания бронирования
+        status:
+          type: string
+          description: Статус бронирования (например, "подтверждено", "отменено")
+        created_at:
+          type: string
+          format: date-time
+          description: Время создания бронирования
+      required:
+        - id
+        - user_id
+        - workspace_id
+        - start_time
+        - end_time
+        - status
+        - created_at
+
+    BookingCreateRequest:
+      type: object
+      properties:
+        user_id:
+          type: string
+          format: uuid
+          description: Идентификатор пользователя, создающего бронирование
+        workspace_id:
+          type: string
+          format: uuid
+          description: Идентификатор рабочего места
+        start_time:
+          type: string
+          format: date-time
+          description: Время начала бронирования
+        end_time:
+          type: string
+          format: date-time
+          description: Время окончания бронирования
+      required:
+        - user_id
+        - workspace_id
+        - start_time
+        - end_time
+
+    BookingUpdateRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Новый статус бронирования (например, "подтверждено", "отменено")
+      required:
+        - status
+
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Идентификатор платежа
+        booking_id:
+          type: string
+          format: uuid
+          description: Идентификатор связанного бронирования
+        amount:
+          type: number
+          format: float
+          description: Сумма платежа
+        status:
+          type: string
+          description: Статус платежа (например, "успешно", "ожидает")
+        payment_method:
+          type: string
+          description: Метод платежа
+        paid_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Время проведения платежа
+      required:
+        - id
+        - booking_id
+        - amount
+        - status
+        - payment_method
+
+    PaymentCreateRequest:
+      type: object
+      properties:
+        booking_id:
+          type: string
+          format: uuid
+          description: Идентификатор связанного бронирования
+        amount:
+          type: number
+          format: float
+          description: Сумма платежа
+        payment_method:
+          type: string
+          description: Метод платежа
+      required:
+        - booking_id
+        - amount
+        - payment_method
+
+    PaymentUpdateRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Новый статус платежа (например, "успешно", "ожидает")
+      required:
+        - status
+
+    Service:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Идентификатор услуги
+        name:
+          type: string
+          description: Название услуги
+        description:
+          type: string
+          nullable: true
+          description: Описание услуги
+        price:
+          type: number
+          format: float
+          description: Цена услуги
+      required:
+        - id
+        - name
+        - price
+
+    CreateResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Идентификатор созданного ресурса
+        message:
+          type: string
+          description: Сообщение о результате операции
+      required:
+        - id
+        - message
+
+    UpdateResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Сообщение о результате операции
+      required:
+        - message
