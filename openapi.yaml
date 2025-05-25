@@ -31,7 +31,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateResponse'
+                type: object
+                properties:
+                  bookingId:
+                    type: string
+                    description: Уникальный идентификатор бронирования
+                  status:
+                    type: string
+                    description: Статус бронирования (например, pending_payment)
+                required:
+                  - bookingId
+                  - status
 
   /users/{id}:
     get:
@@ -124,7 +134,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateResponse'
+                type: object
+                properties:
+                  bookingId:
+                    type: string
+                    description: Уникальный идентификатор бронирования
+                  status:
+                    type: string
+                    description: Статус бронирования (например, pending_payment)
+                required:
+                  - bookingId
+                  - status
 
   /organizations/{id}:
     get:
@@ -217,7 +237,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateResponse'
+                type: object
+                properties:
+                  bookingId:
+                    type: string
+                    description: Уникальный идентификатор бронирования
+                  status:
+                    type: string
+                    description: Статус бронирования (например, pending_payment)
+                required:
+                  - bookingId
+                  - status
 
   /coworking-locations/{id}:
     get:
@@ -310,7 +340,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateResponse'
+                type: object
+                properties:
+                  bookingId:
+                    type: string
+                    description: Уникальный идентификатор бронирования
+                  status:
+                    type: string
+                    description: Статус бронирования (например, pending_payment)
+                required:
+                  - bookingId
+                  - status
 
   /workspaces/{id}:
     get:
@@ -403,7 +443,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateResponse'
+                type: object
+                properties:
+                  bookingId:
+                    type: string
+                    description: Уникальный идентификатор бронирования
+                  status:
+                    type: string
+                    description: Статус бронирования (например, pending_payment)
+                required:
+                  - bookingId
+                  - status
 
   /bookings/{id}:
     get:
@@ -496,7 +546,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateResponse'
+                type: object
+                properties:
+                  bookingId:
+                    type: string
+                    description: Уникальный идентификатор бронирования
+                  status:
+                    type: string
+                    description: Статус бронирования (например, pending_payment)
+                required:
+                  - bookingId
+                  - status
 
   /payments/{id}:
     get:
@@ -570,7 +630,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateResponse'
+                type: object
+                properties:
+                  bookingId:
+                    type: string
+                    description: Уникальный идентификатор бронирования
+                  status:
+                    type: string
+                    description: Статус бронирования (например, pending_payment)
+                required:
+                  - bookingId
+                  - status
 
   /services/{id}:
     put:
@@ -662,7 +732,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateResponse'
+                type: object
+                properties:
+                  bookingId:
+                    type: string
+                    description: Уникальный идентификатор бронирования
+                  status:
+                    type: string
+                    description: Статус бронирования (например, pending_payment)
+                required:
+                  - bookingId
+                  - status
         '404':
           description: Бронирование или услуга не найдены
 
@@ -736,7 +816,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateResponse'
+                type: object
+                properties:
+                  bookingId:
+                    type: string
+                    description: Уникальный идентификатор бронирования
+                  status:
+                    type: string
+                    description: Статус бронирования (например, pending_payment)
+                required:
+                  - bookingId
+                  - status
         '404':
           description: Бронирование не найдено
     delete:
@@ -803,7 +893,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateResponse'
+                type: object
+                properties:
+                  bookingId:
+                    type: string
+                    description: Уникальный идентификатор бронирования
+                  status:
+                    type: string
+                    description: Статус бронирования (например, pending_payment)
+                required:
+                  - bookingId
+                  - status
         '404':
           description: Коворкинг не найден
 
@@ -876,7 +976,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateResponse'
+                type: object
+                properties:
+                  bookingId:
+                    type: string
+                    description: Уникальный идентификатор бронирования
+                  status:
+                    type: string
+                    description: Статус бронирования (например, pending_payment)
+                required:
+                  - bookingId
+                  - status
         '404':
           description: Бронирование или парковочное место не найдено
     delete:
@@ -943,7 +1053,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateResponse'
+                type: object
+                properties:
+                  bookingId:
+                    type: string
+                    description: Уникальный идентификатор бронирования
+                  status:
+                    type: string
+                    description: Статус бронирования (например, pending_payment)
+                required:
+                  - bookingId
+                  - status
         '404':
           description: Коворкинг не найден
 
@@ -1016,7 +1136,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateResponse'
+                type: object
+                properties:
+                  bookingId:
+                    type: string
+                    description: Уникальный идентификатор бронирования
+                  status:
+                    type: string
+                    description: Статус бронирования (например, pending_payment)
+                required:
+                  - bookingId
+                  - status
         '404':
           description: Бронирование или оргтехника не найдены
     delete:
@@ -1065,7 +1195,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateResponse'
+                type: object
+                properties:
+                  bookingId:
+                    type: string
+                    description: Уникальный идентификатор бронирования
+                  status:
+                    type: string
+                    description: Статус бронирования (например, pending_payment)
+                required:
+                  - bookingId
+                  - status
 
   /support-tickets/{id}:
     get:
@@ -1139,7 +1279,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateResponse'
+                type: object
+                properties:
+                  bookingId:
+                    type: string
+                    description: Уникальный идентификатор бронирования
+                  status:
+                    type: string
+                    description: Статус бронирования (например, pending_payment)
+                required:
+                  - bookingId
+                  - status
 
   /events/{id}:
     get:
